@@ -22,8 +22,6 @@ class LoginController extends Controller
             ], 403);
         }
 
-        $request->session()->regenerate();
-
         $user = Auth::user();
 
         $token = $user->createToken('login-token');
