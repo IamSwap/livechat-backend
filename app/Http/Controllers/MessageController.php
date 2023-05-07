@@ -25,5 +25,7 @@ class MessageController extends Controller
         $message->load('user');
 
         SendMessageEvent::dispatch($message);
+
+        return new MessageResource($message);
     }
 }
