@@ -24,6 +24,7 @@ processes = []
   LOG_LEVEL = "info"
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
   APP_URL = "https://sq1-livechat.fly.dev"
+  BROADCAST_DRIVER="pusher"
   PUSHER_APP_ID="saytv"
   PUSHER_HOST="soketi.saytv.sq1.io"
   PUSHER_PORT="443"
