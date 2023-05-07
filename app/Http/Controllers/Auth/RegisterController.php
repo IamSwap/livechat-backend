@@ -25,6 +25,8 @@ class RegisterController extends Controller
 
         $token = $user->createToken('login-token');
 
-        return ['token' => $token->plainTextToken];
+        return response()->json([
+            'token' => $token->plainTextToken
+        ]);
     }
 }
