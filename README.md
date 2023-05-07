@@ -1,4 +1,4 @@
-# Neureka Project Setup
+# Project Setup
 
 This README provides a step-by-step guide on how to install and setup project. Please follow the instructions below to get started.
 
@@ -8,24 +8,15 @@ Before you begin, ensure that you have the following installed on your local dev
 
 1. PHP >= 8.1
 2. Composer
-3. Node.js >= 16.x
-4. PHP MongoDB Driver/Extension
-5. Redis
 
 ## Installation
 
 ### 1. Clone the repository
 
-Clone the project repository to your local machine by running:
+Clone the project repository to your local machine & Navigate to the project directory:
 
 ```bash
-git clone https://bitbucket.org/square1/neureka.git
-```
-
-Navigate to the project directory:
-
-```bash
-cd neureka
+cd project
 ```
 
 ### 2. Install PHP dependencies
@@ -71,28 +62,6 @@ Migrate and seed the database:
 
 ```bash
 php artisan migrate --seed
-```
-
-### 6. Install JavaScript dependencies
-
-Install JavaScript dependencies using npm:
-
-```bash
-npm install
-```
-
-### 7. Compile JavaScript assets
-
-Compile the JavaScript assets for development:
-
-```bash
-npm run dev
-```
-
-Or for production:
-
-```bash
-npm run prod
 ```
 
 ## Running the Application
