@@ -21,7 +21,8 @@ class SendMessageEvent implements ShouldBroadcastNow
      */
     public function __construct(
         public Message $message,
-    ) {}
+    ) {
+    }
 
     /**
      * Get the channels the event should broadcast on.
@@ -31,7 +32,7 @@ class SendMessageEvent implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('messages'),
+            new PresenceChannel('messages'),
         ];
     }
 }
