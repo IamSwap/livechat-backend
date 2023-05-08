@@ -1,62 +1,60 @@
-# fly.toml app configuration file generated for sq1-livechat on 2023-05-07T11:38:45+05:30
+# fly.toml app configuration file generated for sq1-livechat on 2023-05-08T17:06:44+05:30
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = "sq1-livechat"
-kill_signal = "SIGINT"
-kill_timeout = 5
 primary_region = "ams"
-processes = []
+kill_signal = "SIGINT"
+kill_timeout = "5s"
+
+[experimental]
+  auto_rollback = true
 
 [build]
   [build.args]
     NODE_VERSION = "18"
     PHP_VERSION = "8.1"
 
+[deploy]
+  release_command = "php /var/www/html/artisan migrate --force"
+
 [env]
   APP_ENV = "production"
+  APP_URL = "https://sq1-livechat.fly.dev"
+  BROADCAST_DRIVER = "pusher"
   DB_CONNECTION = "mysql"
+  DB_DATABASE = "saytv-livechat"
   DB_HOST = "aws.connect.psdb.cloud"
-  DB_DATABASE= "saytv-livechat"
-  MYSQL_ATTR_SSL_CA="/etc/ssl/certs/ca-certificates.crt"
   LOG_CHANNEL = "stderr"
   LOG_LEVEL = "info"
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
-  APP_URL = "https://sq1-livechat.fly.dev"
-  BROADCAST_DRIVER="pusher"
-  PUSHER_PORT="443"
-  PUSHER_APP_CLUSTER="mt1"
-  PUSHER_SCHEME="https"
-
-[experimental]
-  auto_rollback = true
+  MYSQL_ATTR_SSL_CA = "/etc/ssl/certs/ca-certificates.crt"
+  PRIMARY_REGION = "ams"
+  PUSHER_APP_CLUSTER = "ap2"
+  PUSHER_PORT = "443"
+  PUSHER_SCHEME = "https"
 
 [[services]]
-  http_checks = []
+  protocol = "tcp"
   internal_port = 8080
   processes = ["app"]
-  protocol = "tcp"
-  script_checks = []
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
   [services.concurrency]
+    type = "connections"
     hard_limit = 25
     soft_limit = 20
-    type = "connections"
-
-  [[services.ports]]
-    force_https = true
-    handlers = ["http"]
-    port = 80
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
 
   [[services.tcp_checks]]
-    grace_period = "1s"
     interval = "15s"
-    restart_limit = 0
     timeout = "2s"
-
-[deploy]
-  release_command = "php /var/www/html/artisan migrate --force"
+    grace_period = "1s"
+    restart_limit = 0
